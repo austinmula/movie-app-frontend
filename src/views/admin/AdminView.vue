@@ -52,7 +52,7 @@
 
 <script>
 // @ is an alias to /src
-import MovieForm from "./admin/forms/MovieForm.vue";
+import MovieForm from "./forms/MovieForm.vue";
 
 export default {
   name: "HomeView",
