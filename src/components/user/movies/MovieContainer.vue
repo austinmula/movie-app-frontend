@@ -2,26 +2,15 @@
   <div class="cust-container">
     <h3>{{ title }}</h3>
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
-      </el-col>
-      <el-col :xs="24" :sm="12" :md="8" :lg="6">
-        <MovieCard />
+      <el-col
+        v-for="ser in data"
+        :key="ser.id"
+        :xs="24"
+        :sm="12"
+        :md="8"
+        :lg="6"
+      >
+        <MovieCard :series="ser" />
       </el-col>
     </el-row>
   </div>
@@ -32,6 +21,7 @@ import MovieCard from "./MovieCard.vue";
 export default {
   props: {
     title: String,
+    data: Array,
   },
   components: {
     MovieCard,

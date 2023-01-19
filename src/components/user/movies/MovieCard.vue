@@ -1,25 +1,22 @@
 <template>
-  <div style="cursor: pointer" @click="handleClick">
+  <div style="cursor: pointer" @click="handleClick(series.id)">
     <el-card :body-style="{ padding: '0px' }">
       <div class="img-container">
-        <img
-          src="https://hips.hearstapps.com/digitalspyuk.cdnds.net/18/38/1537460082-daredevil-season-3-poster.jpg?resize=768:*"
-          class="image"
-        />
+        <img :src="series.poster_img" class="image" :alt="series.name" />
       </div>
       <div class="bottom">
         <div
           style="
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
           "
         >
-          <h3>Dare Devil</h3>
-          <small>SS 34</small>
-        </div>
-        <div>
-          <small><strong>Genre: </strong> Action | Fiction </small>
+          <h3>{{ series.name }}</h3>
+          <div>
+            <small>Seasons: {{ series.seasons }}</small> |
+            <small>Episodes: {{ series.episodes }} </small>
+          </div>
         </div>
       </div>
     </el-card>
@@ -29,11 +26,11 @@
 <script>
 import router from "@/router";
 export default {
-  props: {},
+  props: { series: Object },
   methods: {
-    handleClick() {
+    handleClick(id) {
       console.log("clicked");
-      router.push({ name: "adminhome" });
+      router.push({ name: "single-series", params: { id: id } });
     },
   },
 };
