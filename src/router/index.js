@@ -31,6 +31,7 @@ const routes = [
     path: "/tv-series/:id",
     name: "single-series",
     component: SingleSeriesView,
+    props: true,
   },
   {
     path: "/profile",
