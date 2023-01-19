@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import AdminView from "../views/admin/AdminView.vue";
 import LoginView from "../views/LoginView.vue";
 import HomePageView from "../views/user/HomePageView.vue";
+import AllSeriesView from "../views/user/AllSeriesView.vue";
+import SingleSeriesView from "../views/user/SingleSeriesView.vue";
+import ProfileView from "../views/user/ProfileView.vue";
 
 const routes = [
   {
@@ -18,6 +21,21 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     // component: () =>
     // import(/* webpackChunkName: "about" */ "../views/user/HomePageView.vue"),
+  },
+  {
+    path: "/tv-series",
+    name: "all-series",
+    component: AllSeriesView,
+  },
+  {
+    path: "/tv-series/:id",
+    name: "single-series",
+    component: SingleSeriesView,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfileView,
   },
   {
     path: "/login",

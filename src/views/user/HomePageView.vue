@@ -1,8 +1,20 @@
 <script>
-import MovieContainer from "../../components/user/movies/MovieContainer.vue";
+import MovieContainer from "@/components/user/movies/MovieContainer.vue";
+import NavigationBar from "@/components/user/NavigationBar.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     MovieContainer,
+    NavigationBar,
+  },
+  methods: {
+    ...mapActions(["getSeries"]),
+  },
+  created() {
+    this.getSeries();
+  },
+  computed: {
+    ...mapGetters(["all_series"]),
   },
   data() {
     return {
@@ -33,27 +45,26 @@ export default {
 
 <template>
   <div class="heading-comp">
-    <div class="navigation-bar">
-      <p>Navbar</p>
-    </div>
+    <NavigationBar />
     <el-carousel height="100%">
-      <el-carousel-item v-for="item in items" :key="item.id">
+      <el-carousel-item v-for="item in all_series" :key="item.id">
         <div class="overlay"></div>
         <div class="hero-text">
           <h1>{{ item.name }}</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-            voluptas quaerat aut sequi commodi.
+            {{ item.summary }}
           </p>
-          <el-button type="primary">Explore TV Series</el-button>
+          <el-button type="primary" style="padding: 1.3em 1.7em"
+            >Explore TV Series</el-button
+          >
         </div>
         <img :src="item.image" :alt="item.name" />
       </el-carousel-item>
     </el-carousel>
   </div>
   <div style="padding: 3rem 1rem">
-    <MovieContainer title="Recent Movies" />
-    <MovieContainer title="Top Rated Movies" />
+    <MovieContainer :data="all_series" title="Recent Movies" />
+    <MovieContainer :data="all_series" title="Top Rated Movies" />
   </div>
 </template>
 
@@ -66,15 +77,6 @@ export default {
   position: relative;
   max-height: 678px;
   height: 100vh;
-  .navigation-bar {
-    // position: fixed;
-    position: absolute;
-    // background: #000;
-    top: 0;
-    height: 45px;
-    width: 100%;
-  }
-
   .el-carousel {
     position: relative;
     max-height: 678px;
@@ -119,6 +121,13 @@ export default {
       }
       p {
         max-width: 500px;
+        display: -webkit-box;
+        overflow: hidden;
+        line-height: 1.7em;
+
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
     }
   }
