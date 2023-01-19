@@ -7,21 +7,25 @@
       :ellipsis="false"
       @select="handleSelect"
     >
-      <el-menu-item index="0">LOGO</el-menu-item>
+      <el-menu-item index="homepage">LOGO</el-menu-item>
       <div class="flex-grow" />
-      <el-menu-item index="1">Home</el-menu-item>
-      <el-menu-item index="2">TV Series</el-menu-item>
-      <el-menu-item index="3">Profile</el-menu-item>
+      <el-menu-item index="homepage">Home</el-menu-item>
+      <el-menu-item index="all-series">TV Series</el-menu-item>
+      <el-menu-item index="profile">Profile</el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const activeIndex = ref("1");
 const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath);
+  console.log(key, keyPath[0]);
+  router.push({ name: keyPath[0] });
 };
 </script>
 
@@ -50,33 +54,6 @@ const handleSelect = (key, keyPath) => {
   width: 100%;
   z-index: 10000;
   background: rgb(0, 0, 0);
-  opacity: 0.6;
+  opacity: 0.7;
 }
-</style>
-
-//
-<script>
-// export default {};
-//
-</script>
-
-//
-<style scoped lang="scss">
-// .navigation-bar {
-//   position: fixed;
-//   // position: absolute;
-//   top: 0;
-//   width: 100%;
-//   z-index: 10000;
-//   background: rgb(0, 0, 0);
-//   opacity: 0.5;
-//   .content {
-//     max-width: 90%;
-//     margin: auto;
-//     h3 {
-//       color: #fff;
-//     }
-//   }
-// }
-//
 </style>
