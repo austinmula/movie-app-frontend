@@ -15,7 +15,7 @@
       >
         <el-menu-item index="1">
           <el-icon><icon-menu /></el-icon>
-          <span>DashBoard</span>
+          <router-link to="/admin"><span> DashBoard</span></router-link>
         </el-menu-item>
         <el-menu-item index="2">
           <el-icon><document /></el-icon>
@@ -41,22 +41,19 @@
           </div>
         </el-menu>
       </el-header>
-      <el-main
-        ><el-card>
-          <h3>Create new TV-Series</h3>
-          <MovieForm /> </el-card
-      ></el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import MovieForm from "./forms/MovieForm.vue";
 
 export default {
   name: "HomeView",
-  components: { MovieForm },
+  components: {},
 };
 </script>
 

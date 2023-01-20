@@ -3,14 +3,22 @@ import AdminView from "../views/admin/AdminView.vue";
 import LoginView from "../views/LoginView.vue";
 import HomePageView from "../views/user/HomePageView.vue";
 import AllSeriesView from "../views/user/AllSeriesView.vue";
-import SingleSeriesView from "../views/user/SingleSeriesView.vue";
-import ProfileView from "../views/user/ProfileView.vue";
+import SingleSeriesView from "@/views/user/SingleSeriesView.vue";
+import ProfileView from "@/views/user/ProfileView.vue";
+import DashBoardView from "@/views/admin/DashBoardView.vue";
 
 const routes = [
   {
     path: "/admin",
     name: "adminhome",
     component: AdminView,
+    children: [
+      {
+        path: "",
+        name: "admindashboard",
+        component: <DashBoardView />,
+      },
+    ],
   },
   {
     path: "/",
@@ -48,6 +56,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/", "/login", "/tv-series", "/tv-series/:id"];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem("user");
+
+  // trying to access a restricted page + not logged in
+  // redirect to login page
+  if (authRequired && !loggedIn) {
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;
