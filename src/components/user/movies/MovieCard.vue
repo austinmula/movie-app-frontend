@@ -1,5 +1,12 @@
 <template>
   <div style="cursor: pointer" @click="handleClick(series.id)">
+    <el-icon v-show="series.user_id" color="#409EFC" class="no-inherit">
+      <Star />
+    </el-icon>
+    <el-icon v-show="series.is_active" color="#409EFC" class="no-inherit">
+      <Money />
+    </el-icon>
+
     <el-card :body-style="{ padding: '0px' }">
       <div class="img-container">
         <img :src="series.poster_img" class="image" :alt="series.name" />
@@ -24,8 +31,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 import router from "@/router";
+import { Star, Money } from "@element-plus/icons-vue";
 export default {
+  components: { Star, Money },
   props: { series: Object },
   methods: {
     handleClick(id) {

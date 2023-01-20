@@ -1,12 +1,15 @@
 <script>
 import MovieContainer from "@/components/user/movies/MovieContainer.vue";
 import NavigationBar from "@/components/user/NavigationBar.vue";
+import sortMixin from "@/mixins/sortMixin";
+import filterMixin from "@/mixins/filterMixin";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     MovieContainer,
     NavigationBar,
   },
+  mixins: [sortMixin, filterMixin],
   methods: {
     ...mapActions(["getSeries"]),
   },
@@ -30,12 +33,6 @@ export default {
           image:
             "https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQSMcH7d0gQjQ7W5mJmJNGAw6fzlWzoHeohNtmmbcFx6GA2gaWkX6qmIx7mJSOqk7y0t9sNfdzePXYTKqhDnZjjzPj1fhK9PD3og9JAH4NWAyQ_JUmPFzc0yUcV6he_IYdKJzz97ULbOVVGACnP6SmlxDv34.jpg?r=ca3",
           name: "Vikings Valhalla",
-        },
-        {
-          id: 3,
-          image:
-            "https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/a39f4723-84c5-437e-b53f-c797c9783d88/new-poster-and-premiere-date-for-tim-burtons-wednesday.jpg",
-          name: "Wednesday",
         },
       ],
     };
@@ -63,8 +60,8 @@ export default {
     </el-carousel>
   </div>
   <div style="padding: 3rem 1rem">
-    <MovieContainer :data="all_series" title="Recent Movies" />
-    <MovieContainer :data="all_series" title="Top Rated Movies" />
+    <MovieContainer :data="sortedPosts" title="Recent Movies" />
+    <MovieContainer :data="topRatedPosts" title="Top Rated Movies" />
   </div>
 </template>
 

@@ -45,12 +45,7 @@
             </el-card></el-col
           >
         </el-row>
-        <div class="actions-container">
-          <div class="flex justify-space-between flex-wrap gap-4">
-            <el-button type="primary">Subscribe</el-button>
-            <el-button type="success">Add to Favourites</el-button>
-          </div>
-        </div>
+        <MovieActions :movie_id="this.id" />
       </el-col>
     </el-row>
   </div>
@@ -61,12 +56,14 @@ import NavigationBar from "@/components/user/NavigationBar.vue";
 import { mapActions, mapGetters } from "vuex";
 
 import MovieDetailsTab from "@/components/user/movies/MovieDetailsTab.vue";
+import MovieActions from "@/components/user/movies/MovieActions.vue";
 
 export default {
   props: ["id"],
   components: {
     NavigationBar,
     MovieDetailsTab,
+    MovieActions,
   },
   methods: {
     ...mapActions(["getOneShow"]),
