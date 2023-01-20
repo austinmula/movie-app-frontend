@@ -15,7 +15,7 @@
       >
         <el-menu-item index="1">
           <el-icon><icon-menu /></el-icon>
-          <router-link to="/admin"><span> DashBoard</span></router-link>
+          <router-link to="/admin"><span>DashBoard</span></router-link>
         </el-menu-item>
         <el-menu-item index="2">
           <el-icon><document /></el-icon>
@@ -50,10 +50,22 @@
 
 <script>
 // @ is an alias to /src
-
+import { mapGetters } from "vuex";
+import router from "@/router";
 export default {
   name: "HomeView",
   components: {},
+  computed: {
+    ...mapGetters(["current_user"]),
+    adminCheck() {
+      return this.current_user.user.role_id == 2;
+    },
+  },
+  mounted() {
+    if (!this.adminCheck) {
+      router.push({ name: "homepage" });
+    }
+  },
 };
 </script>
 

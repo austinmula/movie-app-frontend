@@ -66,7 +66,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      router.push({ name: "homepage" });
+      router.push({ name: "profile" });
     }
   },
   mounted() {
