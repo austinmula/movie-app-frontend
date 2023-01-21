@@ -1,41 +1,64 @@
 <script setup>
 import { reactive, ref } from "vue";
+import axios from "axios";
 // import type { FormInstance, FormRules } from "element-plus";
 
 const formSize = ref("default");
 const ruleFormRef = ref();
 const ruleForm = reactive({
-  name: "Hello",
-  region: "",
-  count: "",
-  date1: "",
-  date2: "",
+  name: "",
+  summary: "",
+  seasons: "",
+  episodes: "",
+  released: "",
   delivery: false,
-  type: [],
-  resource: "",
-  desc: "",
+  genre: [],
+  imdb_score: "",
+  rt_score: "",
+  image: "",
+  poster_img: "",
 });
 
 const rules = reactive({
   name: [
-    { required: true, message: "Please input Activity name", trigger: "blur" },
-    { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" },
+    { required: true, message: "Please input series name", trigger: "blur" },
   ],
-  region: [
+  summary: [
     {
       required: true,
-      message: "Please select Activity zone",
+      message: "Please provide movie summary",
       trigger: "change",
     },
   ],
-  count: [
+  seasons: [
     {
       required: true,
-      message: "Please select Activity count",
+      message: "Enter number of seasons",
       trigger: "change",
     },
   ],
-  date1: [
+  episodes: [
+    {
+      required: true,
+      message: "Enter number of episodes",
+      trigger: "change",
+    },
+  ],
+  imdb_score: [
+    {
+      required: true,
+      message: "Enter imdb score",
+      trigger: "change",
+    },
+  ],
+  rt_score: [
+    {
+      required: true,
+      message: "Enter rotten tomatoes score",
+      trigger: "change",
+    },
+  ],
+  released: [
     {
       type: "date",
       required: true,
@@ -43,31 +66,19 @@ const rules = reactive({
       trigger: "change",
     },
   ],
-  date2: [
-    {
-      type: "date",
-      required: true,
-      message: "Please pick a time",
-      trigger: "change",
-    },
-  ],
-  type: [
+  genre: [
     {
       type: "array",
-      required: true,
       message: "Please select at least one activity type",
       trigger: "change",
     },
   ],
-  resource: [
+  image: [
     {
       required: true,
-      message: "Please select activity resource",
+      message: "Please select an image",
       trigger: "change",
     },
-  ],
-  desc: [
-    { required: true, message: "Please input activity form", trigger: "blur" },
   ],
 });
 
@@ -75,100 +86,139 @@ const submitForm = async (formEl) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log("submit!");
+      postToServer(ruleForm, formEl);
     } else {
       console.log("error submit!", fields);
     }
   });
 };
 
+const postToServer = async (data, formEl) => {
+  try {
+    const response = await axios.post("http://localhost:4001/api/series", data);
+    if (response.status === 200) {
+      formEl.resetFields();
+    }
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const resetForm = (formEl) => {
   if (!formEl) return;
   formEl.resetFields();
 };
-
-const options = Array.from({ length: 10000 }).map((_, idx) => ({
-  value: `${idx + 1}`,
-  label: `${idx + 1}`,
-}));
 </script>
+
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    :rules="rules"
-    label-width="120px"
-    class="demo-ruleForm"
-    :size="formSize"
-    status-icon
-  >
-    <el-form-item label="Activity name" prop="name">
-      <el-input v-model="ruleForm.name" />
-    </el-form-item>
-    <el-form-item label="Activity zone" prop="region">
-      <el-select v-model="ruleForm.region" placeholder="Activity zone">
-        <el-option label="Zone one" value="shanghai" />
-        <el-option label="Zone two" value="beijing" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="Activity count" prop="count">
-      <el-select-v2
-        v-model="ruleForm.count"
-        placeholder="Activity count"
-        :options="options"
-      />
-    </el-form-item>
-    <el-form-item label="Activity time" required>
-      <el-col :span="11">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="date"
-            label="Pick a date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-      <el-col class="text-center" :span="2">
-        <span class="text-gray-500">-</span>
-      </el-col>
-      <el-col :span="11">
-        <el-form-item prop="date2">
-          <el-time-picker
-            v-model="ruleForm.date2"
-            label="Pick a time"
-            placeholder="Pick a time"
-            style="width: 100%"
-          />
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label="Instant delivery" prop="delivery">
-      <el-switch v-model="ruleForm.delivery" />
-    </el-form-item>
-    <el-form-item label="Activity type" prop="type">
-      <el-checkbox-group v-model="ruleForm.type">
-        <el-checkbox label="Online activities" name="type" />
-        <el-checkbox label="Promotion activities" name="type" />
-        <el-checkbox label="Offline activities" name="type" />
-        <el-checkbox label="Simple brand exposure" name="type" />
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="Resources" prop="resource">
-      <el-radio-group v-model="ruleForm.resource">
-        <el-radio label="Sponsorship" />
-        <el-radio label="Venue" />
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item label="Activity form" prop="desc">
-      <el-input v-model="ruleForm.desc" type="textarea" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)">
-        Create
-      </el-button>
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-  </el-form>
+  <el-card>
+    <h3>Create New Movie Entry</h3>
+    <el-form
+      ref="ruleFormRef"
+      :model="ruleForm"
+      :rules="rules"
+      label-width="120px"
+      class="demo-ruleForm"
+      :size="formSize"
+      status-icon
+    >
+      <el-form-item label="Series name" prop="name">
+        <el-input v-model="ruleForm.name" />
+      </el-form-item>
+
+      <el-form-item label="Summary" prop="summary">
+        <el-input v-model="ruleForm.summary" type="textarea" />
+      </el-form-item>
+
+      <el-row>
+        <el-col :xs="24" :md="12">
+          <el-form-item label="Seasons" prop="seasons">
+            <el-input-number
+              style="width: 100%"
+              v-model="ruleForm.seasons"
+              :min="1"
+              :max="100"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :md="12">
+          <el-form-item label="Episodes" prop="episodes">
+            <el-input-number
+              style="width: 100%"
+              v-model="ruleForm.episodes"
+              :min="1"
+              :max="2000"
+            />
+          </el-form-item>
+        </el-col>
+
+        <el-col :xs="24" :md="24">
+          <el-form-item prop="released" label="Release Date">
+            <el-date-picker
+              v-model="ruleForm.released"
+              type="date"
+              label="Pick a date"
+              placeholder="Pick a date"
+              style="width: 80%"
+            />
+          </el-form-item>
+        </el-col>
+
+        <el-col :xs="24" :md="12" :lg="8">
+          <el-form-item label="IMDB Score" prop="imdb_score">
+            <el-input-number
+              style="width: 100%"
+              v-model="ruleForm.imdb_score"
+              :min="1"
+              :max="10"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :xs="24" :md="12" :lg="8">
+          <el-form-item label="RTomatoes" prop="rt_score">
+            <el-input-number
+              style="width: 100%"
+              v-model="ruleForm.rt_score"
+              :min="1"
+              :max="100"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-form-item label="Image" prop="image">
+        <el-input
+          v-model="ruleForm.image"
+          placeholder="enter url of poster image"
+        />
+      </el-form-item>
+      <el-form-item label="Poster" prop="poster_img">
+        <el-input
+          v-model="ruleForm.poster_img"
+          placeholder="enter url of poster image"
+        />
+      </el-form-item>
+
+      <el-form-item label="Genre" prop="genre">
+        <el-checkbox-group v-model="ruleForm.genre">
+          <el-checkbox label="Online activities" name="genre" />
+          <el-checkbox label="Promotion activities" name="genre" />
+          <el-checkbox label="Offline activities" name="genre" />
+          <el-checkbox label="Simple brand exposure" name="genre" />
+          <el-checkbox label="Online activities" name="genre" />
+          <el-checkbox label="Promotion activities" name="genre" />
+          <el-checkbox label="Offline activities" name="genre" />
+          <el-checkbox label="Simple brand exposure" name="genre" />
+        </el-checkbox-group>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" @click="submitForm(ruleFormRef)">
+          Create
+        </el-button>
+        <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+      </el-form-item>
+    </el-form>
+  </el-card>
 </template>

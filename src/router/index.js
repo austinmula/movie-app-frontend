@@ -6,6 +6,7 @@ import AllSeriesView from "../views/user/AllSeriesView.vue";
 import SingleSeriesView from "@/views/user/SingleSeriesView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
 import DashBoardView from "@/views/admin/DashBoardView.vue";
+import SubscriptionsView from "@/views/admin/SubscriptionsView.vue";
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
         path: "",
         name: "admindashboard",
         component: <DashBoardView />,
+      },
+      {
+        path: "subscriptions",
+        name: "allsubs",
+        component: <SubscriptionsView />,
       },
     ],
   },

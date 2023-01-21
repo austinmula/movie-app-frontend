@@ -19,7 +19,9 @@
         </el-menu-item>
         <el-menu-item index="2">
           <el-icon><document /></el-icon>
-          <span>Users</span>
+          <router-link to="/admin/subscriptions"
+            ><span>Subscriptions</span></router-link
+          >
         </el-menu-item>
         <el-menu-item index="3">
           <el-icon><setting /></el-icon>
@@ -71,8 +73,12 @@ export default {
 
 <style lang="scss" scoped>
 .el-aside {
-  min-height: 100vh;
+  height: 100vh;
   background: #333;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
   .logo {
     padding: 1px 1rem;
     background-color: rgb(32, 31, 31);
@@ -96,9 +102,20 @@ export default {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -1;
 }
 
 .el-main {
   background: #f9f9f9;
+  // background: #000;
+}
+.el-container {
+  // position: absolute;
+  position: relative;
+  left: 115px;
+  width: calc(100% - 230px);
 }
 </style>
