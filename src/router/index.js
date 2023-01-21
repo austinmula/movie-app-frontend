@@ -7,6 +7,7 @@ import SingleSeriesView from "@/views/user/SingleSeriesView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
 import DashBoardView from "@/views/admin/DashBoardView.vue";
 import SubscriptionsView from "@/views/admin/SubscriptionsView.vue";
+import MoviesAdminView from "@/views/admin/MoviesAdminView.vue";
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
         path: "subscriptions",
         name: "allsubs",
         component: <SubscriptionsView />,
+      },
+      {
+        path: "tv-shows",
+        name: "tvshows",
+        component: <MoviesAdminView />,
       },
     ],
   },

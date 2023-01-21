@@ -25,7 +25,7 @@
         </el-menu-item>
         <el-menu-item index="3">
           <el-icon><setting /></el-icon>
-          <span>Subscriptions</span>
+          <router-link to="/admin/tv-shows"><span>TV_Shows</span></router-link>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -79,6 +79,10 @@ export default {
   top: 0;
   bottom: 0;
   left: 0;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
   .logo {
     padding: 1px 1rem;
     background-color: rgb(32, 31, 31);
