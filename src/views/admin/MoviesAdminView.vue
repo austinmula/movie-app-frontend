@@ -8,7 +8,10 @@ export default {
   },
   components: {},
   methods: {
-    ...mapActions(["getSeries"]),
+    ...mapActions(["getSeries", "deleteShow"]),
+    handleDelete(props) {
+      this.deleteShow(props.row.id);
+    },
   },
   created() {
     this.getSeries();
@@ -43,8 +46,11 @@ export default {
 
     <el-table-column prop="episodes" label="Episodes" />
     <el-table-column prop="imdb_score" label="IMDB score" />
-    <el-table-column label="Actions">
-      <el-button type="danger">Delete</el-button>
+    <el-table-column label="Actions" prop="id">
+      <template #default="props">
+        <!-- <p>{{ props.row.id }}</p> -->
+        <el-button type="danger" @click="handleDelete(props)">Delete</el-button>
+      </template>
     </el-table-column>
     <!-- <el-table-column prop="series_name" label="TV Show" /> -->
   </el-table>

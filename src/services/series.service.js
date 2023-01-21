@@ -20,3 +20,13 @@ export const getOneShow = (id) => {
     return response.data[0];
   });
 };
+
+export const deleteShow = (id) => {
+  return axios.delete(API_URL + id).then((response) => {
+    console.log(response);
+    if (response.status !== 200) {
+      throw new Error();
+    }
+    return response.data;
+  });
+};
