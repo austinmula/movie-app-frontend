@@ -15,8 +15,14 @@
       prop="is_active"
       label="Sub Status"
       width="180"
+      align="center"
       :formatter="formatStatus"
-    >
+      ><template #default="props">
+        <el-tag v-if="props.row.is_active" class="ml-2" type="success"
+          >Active</el-tag
+        >
+        <el-tag v-else class="ml-2" type="danger">Inactive</el-tag>
+      </template>
     </el-table-column>
 
     <el-table-column prop="name" label="Username" />

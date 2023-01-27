@@ -5,26 +5,26 @@
         <h3>Movie Manager</h3>
       </div>
       <el-menu
+        :default-active="activeIndex"
         active-text-color="#fff3f3"
         background-color="#333"
         class="el-menu-vertical-demo"
-        default-active="2"
         text-color="#fff"
         @open="handleOpen"
         @close="handleClose"
       >
         <el-menu-item index="1">
-          <el-icon><icon-menu /></el-icon>
+          <!-- <el-icon><icon-menu /></el-icon> -->
           <router-link to="/admin"><span>DashBoard</span></router-link>
         </el-menu-item>
         <el-menu-item index="2">
-          <el-icon><document /></el-icon>
+          <!-- <el-icon><document /></el-icon> -->
           <router-link to="/admin/subscriptions"
             ><span>Subscriptions</span></router-link
           >
         </el-menu-item>
         <el-menu-item index="3">
-          <el-icon><setting /></el-icon>
+          <!-- <el-icon><setting /></el-icon> -->
           <router-link to="/admin/tv-shows"><span>TV_Shows</span></router-link>
         </el-menu-item>
       </el-menu>
@@ -32,7 +32,6 @@
     <el-container>
       <el-header>
         <el-menu
-          :default-active="activeIndex"
           class="el-menu-demo"
           mode="horizontal"
           :ellipsis="false"
@@ -56,6 +55,11 @@ import { mapGetters } from "vuex";
 import router from "@/router";
 export default {
   name: "HomeView",
+  data() {
+    return {
+      activeIndex: 1,
+    };
+  },
   components: {},
   computed: {
     ...mapGetters(["current_user"]),

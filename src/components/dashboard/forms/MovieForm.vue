@@ -1,8 +1,10 @@
 <script setup>
 import { reactive, ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 // import type { FormInstance, FormRules } from "element-plus";
 
+const router = useRouter();
 const formSize = ref("default");
 const ruleFormRef = ref();
 const ruleForm = reactive({
@@ -98,6 +100,7 @@ const postToServer = async (data, formEl) => {
     const response = await axios.post("http://localhost:4001/api/series", data);
     if (response.status === 200) {
       formEl.resetFields();
+      router.push({ name: "tvshows" });
     }
     console.log(response);
   } catch (error) {
@@ -105,10 +108,10 @@ const postToServer = async (data, formEl) => {
   }
 };
 
-const resetForm = (formEl) => {
-  if (!formEl) return;
-  formEl.resetFields();
-};
+// const resetForm = (formEl) => {
+//   if (!formEl) return;
+//   formEl.resetFields();
+// };
 </script>
 
 <template>
@@ -202,14 +205,13 @@ const resetForm = (formEl) => {
 
       <el-form-item label="Genre" prop="genre">
         <el-checkbox-group v-model="ruleForm.genre">
-          <el-checkbox label="Online activities" name="genre" />
-          <el-checkbox label="Promotion activities" name="genre" />
-          <el-checkbox label="Offline activities" name="genre" />
-          <el-checkbox label="Simple brand exposure" name="genre" />
-          <el-checkbox label="Online activities" name="genre" />
-          <el-checkbox label="Promotion activities" name="genre" />
-          <el-checkbox label="Offline activities" name="genre" />
-          <el-checkbox label="Simple brand exposure" name="genre" />
+          <el-checkbox label="Action" name="genre" />
+          <el-checkbox label="Fiction" name="genre" />
+          <el-checkbox label="Adventure" name="genre" />
+          <el-checkbox label="Horror" name="genre" />
+          <el-checkbox label="Thriller" name="genre" />
+          <el-checkbox label="Comedy" name="genre" />
+          <el-checkbox label="Drama" name="genre" />
         </el-checkbox-group>
       </el-form-item>
 
@@ -217,7 +219,7 @@ const resetForm = (formEl) => {
         <el-button type="primary" @click="submitForm(ruleFormRef)">
           Create
         </el-button>
-        <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+        <!-- <el-button @click="resetForm(ruleFormRef)">Reset</el-button> -->
       </el-form-item>
     </el-form>
   </el-card>

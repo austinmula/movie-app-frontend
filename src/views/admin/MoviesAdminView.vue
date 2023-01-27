@@ -41,11 +41,11 @@ export default {
   <el-table :data="filteredPosts" border style="width: 100%">
     <el-table-column prop="name" label="Show Name" width="180">
     </el-table-column>
-    <el-table-column prop="seasons" label="Seasons" width="180">
+    <el-table-column prop="seasons" label="Seasons" width="180" align="center">
     </el-table-column>
 
-    <el-table-column prop="episodes" label="Episodes" />
-    <el-table-column prop="imdb_score" label="IMDB score" />
+    <el-table-column prop="episodes" label="Episodes" align="center" />
+    <el-table-column prop="imdb_score" label="IMDB score" align="center" />
     <el-table-column label="Actions" prop="id">
       <template #default="props">
         <!-- <p>{{ props.row.id }}</p> -->

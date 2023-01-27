@@ -15,6 +15,7 @@
             v-model="model.email"
             placeholder="Email"
             type="email"
+            id="email"
           ></el-input>
         </el-form-item>
         <el-form-item prop="password">
@@ -42,6 +43,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import router from "../router";
+
 export default {
   data() {
     return {
